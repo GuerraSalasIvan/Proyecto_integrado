@@ -14,6 +14,8 @@
     --fondo:rgb(245, 245, 245);
     --management-titulo:#3F5270;
     --management-card-subtitulo:#026C96;
+    --mustard:#EBAA00;
+    --main-match-body-border:#00A0E6;
   }
 
   *{
@@ -133,7 +135,7 @@
   }
 
   .main_content{
-    margin-top: 60px;
+    margin-top: 70px;
   }
 
   #buscador{
@@ -275,6 +277,36 @@
       background: linear-gradient(to right, rgba(255, 255, 255, 0), rgba(255, 255, 255, 0.897));
       z-index: 2;
       height: 85%;
+  }
+
+  .main-match-header{
+    color: var(--mustard);
+    border: solid 1px var(--mustard);
+    border-radius: 6px;
+  }
+
+  .main-match-header > div {
+    margin: 0 !important;
+  }
+
+  .main-match-body{
+    color: var(--primario);
+    border: solid 1px var(--main-match-body-border);
+    border-radius: 6px;
+    padding: 12px;
+    margin: 10px 0px 10px 0px !important;
+  }
+
+  .main-match-body > div {
+    margin: 0 !important;
+  }
+
+  .main-match-body p {
+    margin-bottom: 0 !important;
+  }
+
+  .match-body {
+    padding: 0 !important;
   }
 
 
