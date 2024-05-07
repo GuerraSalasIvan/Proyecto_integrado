@@ -24,10 +24,7 @@
                     <a class="nav-link" href="#"><img src="{{ asset('assests/img/message_icon.png') }}" alt="icono mensajeria"
                             width="32" height="32"></a>
                 </li>
-                <li class="nav-item">
-                    <a class="nav-link" href="#"><img src="{{ asset('assests/img/notificication_icon.png') }}"
-                            alt="icono perfil" width="32" height="32"></a>
-                </li>
+
                 <li class="nav-item">
                     <a id="acceso_personalizado" class="nav-link" href="#"> <img src="{{ asset('assests/img/perfil_icon.png') }}"
                             alt="icono perfil" width="12" height="15"> Acceso personalizado</a>
@@ -46,15 +43,8 @@
               <ul style="margin-bottom: 0px; padding-top: 10px;">
                   <li><a href="#"><img src="{{ asset('assests/img/management/inicio_icon.png') }}" alt="icono mensajeria" width="27" height="27" style="margin-right: 10px;">INICIO</a></li>
                   <li><a href="#"><img src="{{ asset('assests/img/management/cat_icon.png') }}" alt="icono categoria" width="27" height="27" style="margin-right: 10px;">CATEGORÍAS</a></li>
-                  <li><a href="#"><img src="{{ asset('assests/img/management/asig_icon.png') }}" alt="icono asignatura" width="27" height="27" style="margin-right: 10px;">ASIGNATURAS</a></li>
-                  <li><a href="#"><img src="{{ asset('assests/img/management/prof_icon.png') }}" alt="icono profesorado" width="27" height="27" style="margin-right: 10px;">PROFESORADO</a></li>
-                  <li><a href="#"><img src="{{ asset('assests/img/management/alumn_icon.png') }}" alt="icono alumnado" width="27" height="27" style="margin-right: 10px;">ALUMNADO</a></li>
-                  <li><a href="#"><img src="{{ asset('assests/img/management/mat_icon.png') }}" alt="icono matricula" width="27" height="27" style="margin-right: 10px;">MATRÍCULAS</a></li>
                   <li><a href="#"><img src="{{ asset('assests/img/management/event_icon.png') }}" alt="icono events" width="27" height="27" style="margin-right: 10px;">EVENTOS</a></li>
-                  <li><a href="#"><img src="{{ asset('assests/img/management/not_icon.png') }}" alt="icono noticias" width="27" height="27" style="margin-right: 10px;">NOTICIAS</a></li>
-                  <li><a href="#"><img src="{{ asset('assests/img/management/espac_icon.png') }}" alt="icono espacios" width="27" height="27" style="margin-right: 10px;">ESPACIOS</a></li>
-                  <li><a href="#"><img src="{{ asset('assests/img/management/pago_icon.png') }}" alt="icono pagos" width="27" height="27" style="margin-right: 10px;">PAGOS</a></li>
-                  <li><a href="#"><img src="{{ asset('assests/img/management/rol_icon.png') }}" alt="icono roles" width="27" height="27" style="margin-right: 10px;">ROLES</a></li>
+
               </ul>
               <ul>
                   <li><a href="#"><img src="{{ asset('assests/img/management/confi_icon.png') }}" alt="icono mensajeria" width="27" height="27" style="margin-right: 10px;">CONFIGURACIÓN</a></li>
