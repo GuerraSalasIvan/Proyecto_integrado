@@ -3,8 +3,6 @@
 
 @section('content')
 
-<div class="main_content">
-    <div class="info">
         <div class="d-flex flex-column flex-lg-row inicio-management">
             <!-- Columna izquierda -->
             <div class="col-12 col-lg-8 mb-4 mb-lg-0" style="margin-right:30px; max-width:52vw">
@@ -121,6 +119,5 @@
             </div>
 
         </div>
-    </div>
-</div>
+
 @endsection

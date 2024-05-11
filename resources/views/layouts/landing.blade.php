@@ -16,10 +16,18 @@
 <body>
     <x-element.sidebar/>
 
-        @yield('content')
+    <div class="main_content">
+        <div class="info inicio-management">
 
+            @yield('table')
+            @yield('content')
 
+            @stack('scripts')
+
+        </div>
+    </div>
 
 </body>
+
 
 </html>
