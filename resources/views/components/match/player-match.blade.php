@@ -13,7 +13,7 @@
         }
     @endphp
 
-
+<a href="{{ route('game.show', $game->id)}}">
     <div class="row justify-center items-center main-match-body">
         <div class="col">
             <div class="stat">{{ \Carbon\Carbon::parse($gamePlayer->game->match_date)->format('D. d/m') }}</div>
@@ -37,4 +37,5 @@
             <div class="stat">{{ $gamePlayer->blocks }}</div>
         </div>
     </div>
+</a>
 @endforeach
