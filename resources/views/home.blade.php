@@ -28,22 +28,27 @@
 
                             <div class="card card-main-management">
                                 <img src="{{ asset('assests/img/management/grados_icon.png') }}" class="img-fluid card-img-top" alt="Logo de la empresa 10Code" style="max-height: 24px; max-width:24px;">
-                                <p>Creacion de Grados</p>
+                                <p>Evento 1</p>
                             </div>
 
                             <div class="card card-main-management">
                                 <img src="{{ asset('assests/img/management/calendar_icon.png') }}" class="img-fluid card-img-top" alt="Logo de la empresa 10Code" style="max-height: 24px; max-width:24px;">
-                                <p>Calendario Anual</p>
+                                <p>Evento 1</p>
                             </div>
 
                             <div class="card card-main-management">
                                 <img src="{{ asset('assests/img/management/beca_icon.png') }}" class="img-fluid card-img-top" alt="Logo de la empresa 10Code" style="max-height: 24px; max-width:24px;">
-                                <p>Matriculación</p>
+                                <p>Evento 1</p>
                             </div>
 
                             <div class="card card-main-management">
                                 <img src="{{ asset('assests/img/management/beca_icon.png') }}" class="img-fluid card-img-top" alt="Logo de la empresa 10Code" style="max-height: 24px; max-width:24px;">
-                                <p>Becas</p>
+                                <p>Evento 1</p>
+                            </div>
+                            
+                            <div class="card card-main-management">
+                                <img src="{{ asset('assests/img/management/beca_icon.png') }}" class="img-fluid card-img-top" alt="Logo de la empresa 10Code" style="max-height: 24px; max-width:24px;">
+                                <p>Evento 1</p>
                             </div>
 
                         </div>
@@ -58,7 +63,7 @@
                                 <h1>Ultimos Partidos</h1>
                             </div>
                             <div class="col-auto" style="margin: 0px;">
-                                <p class="detalles_titulo_events"><strong><a href="#">Ver todos</a></strong></p>
+                                {{-- <p class="detalles_titulo_events"><strong><a href="#">Ver todos</a></strong></p> --}}
                             </div>
 
                         </div>
@@ -103,10 +108,41 @@
                         <h2>Próximos eventos</h2>
                         <p class="detalles_titulo_events"><strong><a href="#">Ver todos</a></strong></p>
                     </div>
+
+                    <div class="card mb-2" style="border: 1px solid #58BEBE; background-color: #5ABEBE17;">
+                        <div class="row" style="align-items: center; margin-bottom:0px;">
+                            <div class="col-md-12" style="margin-bottom:0px;">
+                                <div class="card-body" style="margin-bottom:0px; padding:8px 20px;">
+                                    <h5 class="card-title"><strong>Titulo del evento</strong></h5>
+                                    <div class="fecha_event_div d-flex justify-content-between" style="margin-bottom:0px;">
+                                        <span class="fecha_event">01/01/2023</span>
+                                        <span class="fecha_event">13:30</span>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+
                 </div>
 
             </div>
 
         </div>
+
+        <script>
+
+            $(document).ready(function() {
+                $(".left-arrow").click(function() {
+                    $(".access").animate({scrollLeft: "-=193"}, "normal");
+                });
+
+                $(".right-arrow").click(function() {
+                    $(".access").animate({scrollLeft: "+=193"}, "normal");
+                });
+            });
+
+
+        </script>
 
 @endsection
