@@ -1,4 +1,7 @@
+<a href="{{ route('game.show', $game->id)}}">
 <div class="row d-flex justify-content-around align-items-center main-match-body">
+
+
     <div class="col">{{ $game->local_team->name }}</div>
     <div class="col">
         {{-- Suma de los puntos del equipo local --}}
@@ -16,4 +19,4 @@
     <div class="col">{{ $game->leagues->name}}</div>
     <div class="col">{{ $game->gameDetails->mvps->full_name }}</div>
 </div>
-
+</a>

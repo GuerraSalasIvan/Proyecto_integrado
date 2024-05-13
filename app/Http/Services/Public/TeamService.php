@@ -27,7 +27,6 @@ class TeamService
 
     public function show(Team $team)
     {
-
         return view('team.show',compact('team'));
     }
 

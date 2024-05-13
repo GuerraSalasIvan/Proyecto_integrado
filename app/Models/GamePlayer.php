@@ -21,4 +21,9 @@ class GamePlayer extends Model
         return $this->belongsTo(Game::class, 'game_id', 'id');
     }
 
+    public function player(): BelongsTo
+    {
+        return $this->belongsTo(Player::class, 'player_id', 'id');
+    }
+
 }
