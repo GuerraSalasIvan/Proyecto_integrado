@@ -353,22 +353,33 @@ h1, h2{
     color: var(--mustard);
     border: solid 1px var(--mustard);
     border-radius: 6px;
+    justify-content: center;
+    align-items: center;
+    margin-bottom: 0 !important;
   }
 
   .main-match-header > div {
     margin: 0 !important;
+
+    div{
+        margin-bottom: 0 !important;
+    }
   }
 
   .main-match-body{
     color: var(--primario);
     border: solid 1px var(--main-match-body-border);
     border-radius: 6px;
-    padding: 12px;
-    margin: 10px 0px 10px 0px !important;
+    padding: 3px;
+    margin-bottom: 0 !important;
+    margin-top: 5px !important;
   }
 
   .main-match-body > div {
-    margin: 0 !important;
+    margin-bottom: 0 !important;
+    div{
+        margin-bottom: 0 !important;
+    }
   }
 
   .main-match-body p {

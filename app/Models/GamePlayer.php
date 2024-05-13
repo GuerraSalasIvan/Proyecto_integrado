@@ -16,8 +16,9 @@ class GamePlayer extends Model
 
     protected $guarded = [];
 
-    public function games(): BelongsTo
+    public function game(): BelongsTo
     {
         return $this->belongsTo(Game::class, 'game_id', 'id');
     }
+
 }

@@ -39,11 +39,12 @@ class Game extends Model
 
     public function gameDetails(): HasOne
     {
-        return $this->belongsTo(gameDetails::class, 'game_id', 'id');
+        return $this->HasOne(gameDetail::class, 'game_id', 'id');
     }
 
-    public function players(): HasMany
+    public function gamePlayers(): HasMany
     {
-        return $this->belongsTo(gamePlayer::class, 'game_id', 'id');
+        return $this->hasMany(GamePlayer::class, 'game_id', 'id');
     }
+
 }

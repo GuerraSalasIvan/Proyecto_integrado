@@ -72,33 +72,22 @@
                                 <div class="col">División</div>
                                 <div class="col">MVP</div>
                             </div>
+                            @forelse ($game as $game)
+                                <x-game.index-game :$game />
+                            @empty
 
-                            <!-- Primer partido -->
-                            <div class="row d-flex justify-content-around align-items-center main-match-body">
-                                <div class="col">CD. Sevilla</div>
-                                <div class="col">65-48</div>
-                                <div class="col">CD. Cartagena</div>
-                                <div class="col">1º Regional</div>
-                                <div class="col">Iván Guerra</div>
-                            </div>
+                            @endforelse
 
-                            <!-- Segundo partido -->
-                            <div class="row d-flex justify-content-around align-items-center main-match-body">
-                                <div class="col">Maria Zambrano Azul</div>
-                                <div class="col">75-60</div>
-                                <div class="col">CD. Los Palacios</div>
-                                <div class="col">2º Regional</div>
-                                <div class="col">David López</div>
-                            </div>
 
-                            <!-- Tercer partido -->
+                            {{-- <!-- Tercer partido -->
                             <div class="row d-flex justify-content-around align-items-center main-match-body">
                                 <div class="col">CD. Barcelona</div>
                                 <div class="col">80-70</div>
                                 <div class="col">CD. Madrid</div>
                                 <div class="col">1º Nacional</div>
                                 <div class="col">Javier Gómez</div>
-                            </div>
+                            </div> --}}
+
                         </div>
 
                     </div>

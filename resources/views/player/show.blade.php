@@ -11,17 +11,21 @@
 
             <div>Card</div>
 
-            <div>Estadisticas de temporada</div>
+            <div>
+                <h2>Estadisticas de temporada</h2>
+                <x-player.season-average :$averages/>
+            </div>
 
-            <div>Estadisticas globales</div>
+            <div>
+                <h2>Estadisticas globales</h2>
+
+            </div>
 
         </div>
         <div class="col-6">
             <div>Juegos Recientes</div>
-            @foreach ($player->teams as $team)
-                @if ($team->year == now()->year-1)
-                    <img src={{$team->getFirstMedia()->getURL()}}/>
-                @endif
+            @foreach ($player as $player)
+
             @endforeach
 
         </div>

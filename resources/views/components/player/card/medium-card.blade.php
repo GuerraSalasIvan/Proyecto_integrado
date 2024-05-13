@@ -15,7 +15,7 @@
                 <h5 class="card-title"><strong>{{ $player->full_name }}</strong></h5>
                 <p class="card-text">{{ Str::limit($player->position, 100, '...') }}</p>
                 <div class="detalles_events_div">
-                    <span class="card-text detalles_events"><small><a href="{{ route('player.show', $player->id)}}">Ver evento</a></small></span>
+                    <span class="card-text detalles_events"><small><a href="{{ route('player.show', $player->id)}}">Detalles</a></small></span>
                 </div>
             </div>
         </div>
