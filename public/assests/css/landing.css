@@ -16,6 +16,7 @@
     --management-card-subtitulo:#026C96;
     --mustard:#EBAA00;
     --main-match-body-border:#00A0E6;
+    --card-player-info-bg:#599EC0;
   }
 
   *{
@@ -390,6 +391,14 @@ h1, h2{
     padding: 0 !important;
   }
 
+  .card-player-info{
+    background-color: var(--card-player-info-bg) !important;
+    border-radius: 12px !important;
+  }
+
+  .player-title{
+    font-size: 34px !important;
+  }
 
   @media (max-height: 500px){
     .social_media{

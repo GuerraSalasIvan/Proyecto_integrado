@@ -1,12 +1,9 @@
 <div class="card mb-3"  style="border: 0">
     <div class="row" style="align-items: center">
-        {{-- <div class="col-md-4">
-            @if($player->getMedia()->first())
-                <img src="{{$player->getMedia()->first()->getURL()}}" class="img-fluid card-img-top" alt="Event Image" style="max-height: 205px;">
-            @else
-                <img src="{{ asset('assets/img/Image2.png') }}" class="img-fluid card-img-top" alt="Event Image" style="max-height: 205px;">
-            @endif
-        </div> --}}
+         <div class="col-md-4">
+
+            <img src="{{ asset('assests/img/default_avatar.jpg') }}" class="img-fluid" alt="Imagen jugador" style="max-height: 205px; object-fit: cover;">
+        </div>
         <div class="col-md-8">
             <div class="card-body">
                 <div class="fecha_event_div">
@@ -21,3 +18,10 @@
         </div>
     </div>
 </div>
+
+
+{{-- @if($player->getMedia()->first())
+                <img src="{{$player->getMedia()->first()->getURL()}}" class="img-fluid card-img-top" alt="Event Image" style="max-height: 205px;">
+            @else
+                <img src="{{ asset('assets/img/Image2.png') }}" class="img-fluid card-img-top" alt="Event Image" style="max-height: 205px;">
+            @endif --}}

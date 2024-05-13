@@ -3,9 +3,9 @@
         <h1 class="titulo_events" style="margin: 10px">{{$team->name}}</h1>
     </div>
 
-    <div>
+    {{-- <div>
         <h2>Promedios de equipo</h2>
-    </div>
+    </div> --}}
 
     <div>
         <h2>Jugadores</h2>

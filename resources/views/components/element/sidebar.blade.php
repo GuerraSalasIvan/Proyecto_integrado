@@ -41,7 +41,7 @@
       <div class="sidebar d-flex flex-column justify-content-between" style="height: 95%;">
 
               <ul style="margin-bottom: 0px; padding-top: 10px;">
-                  <li><a href="#"><img src="{{ asset('assests/img/management/inicio_icon.png') }}" alt="icono mensajeria" width="27" height="27" style="margin-right: 10px;">INICIO</a></li>
+                  <li><a href="{{ route('index')}}"><img src="{{ asset('assests/img/management/inicio_icon.png') }}" alt="icono mensajeria" width="27" height="27" style="margin-right: 10px;">INICIO</a></li>
                   <li><a href="{{ route('team.index')}}"><img src="{{ asset('assests/img/management/cat_icon.png') }}" alt="icono categoria" width="27" height="27" style="margin-right: 10px;">EQUIPOS</a></li>
                   <li><a href="#"><img src="{{ asset('assests/img/management/event_icon.png') }}" alt="icono events" width="27" height="27" style="margin-right: 10px;">EVENTOS</a></li>
 

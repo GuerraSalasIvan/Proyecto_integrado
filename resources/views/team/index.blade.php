@@ -6,6 +6,9 @@
 
 <div class="container">
     <div class="row">
+        <div class="col-12 text-center mb-4">
+            <h2 style="font-size: 35px">Equipos</h2>
+        </div>
 
         @foreach ($teams as $team)
 

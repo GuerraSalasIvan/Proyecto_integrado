@@ -55,7 +55,7 @@
                         <div class="row align-items-center" style="margin: 0px">
 
                             <div class="col" style="margin: 0px; padding: 0px">
-                                <h1>Mis eventos</h1>
+                                <h1>Ultimos Partidos</h1>
                             </div>
                             <div class="col-auto" style="margin: 0px;">
                                 <p class="detalles_titulo_events"><strong><a href="#">Ver todos</a></strong></p>

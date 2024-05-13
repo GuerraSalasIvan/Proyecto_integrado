@@ -10,7 +10,7 @@ use App\Http\Controllers\Public\TeamController;
 
 
 
-Route::get('/', 'App\Http\Controllers\Public\MainPageController@index');
+Route::get('/', 'App\Http\Controllers\Public\MainPageController@index')->name('index');
 
 
 
