@@ -26,7 +26,7 @@ class GameController extends Controller
     }
 
 
-    public function show(Game $game): View
+    public function show(Game $game)
     {
         return $this->service->show($game);
     }

@@ -17,17 +17,25 @@ class TeamService
 
     public function index()
     {
-        $currentYear = Carbon::now()->year;
+        $teams = Team::with('leagues')->get();
 
-        // $teams = Team::where('year', $currentYear-1)->get();
-        $teams = Team::all();
+        // Transformar los datos para incluir el nombre de la liga
+        $teams = $teams->map(function($team) {
+            return [
+                'id' => $team->id,
+                'name' => $team->name,
+                'league_id' => $team->league_id,
+                'league_name' => $team->leagues ? $team->leagues->name : null,
 
-        return view('team.index', compact('teams'));
+            ];
+        });
+        return response()->json(['teams' => $teams], 200);
     }
 
     public function show(Team $team)
     {
-        return view('team.show',compact('team'));
+        $team->load('players');
+        return response()->json(['team' => $team], 200);
     }
 
 }

@@ -41,7 +41,7 @@ class TeamController extends Controller
     /**
      * Display the specified resource.
      */
-    public function show(Team $team): View
+    public function show(Team $team)
     {
         return $this->service->show($team);
     }

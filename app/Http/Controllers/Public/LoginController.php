@@ -5,7 +5,7 @@ namespace App\Http\Controllers\Public;
 use App\Http\Services\Public\LoginService;
 use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
-use Illuminate\View\View;
+
 
 class LoginController extends Controller
 {
@@ -16,7 +16,7 @@ class LoginController extends Controller
         $this->service = new LoginService();
     }
 
-    public function login(): View
+    public function login()
     {
         return $this->service->login();
     }

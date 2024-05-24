@@ -25,17 +25,18 @@ class GameService
             return in_array($player->player_id, $visitTeamPlayersIds);
         });
 
-
-
-
         $localPoints = $gameDetails->local_first_cuarter + $gameDetails->local_second_cuarter + $gameDetails->local_third_cuarter + $gameDetails->local_fourth_cuarter;
 
         $visitPoints = $gameDetails->visit_first_cuarter + $gameDetails->visit_second_cuarter + $gameDetails->visit_third_cuarter + $gameDetails->visit_fourth_cuarter;
 
+        $response = [
+            'game' => $game,
+            'localPoints' => $localPoints,
+            'visitPoints' => $visitPoints,
+            'localTeamPlayers' => $localTeamPlayers,
+            'visitTeamPlayers' => $visitTeamPlayers
+        ];
 
-
-
-
-        return view('game.show', compact('game', 'localPoints', 'visitPoints','localTeamPlayers','visitTeamPlayers'));
+        return response()->json($response, 200);
     }
 }

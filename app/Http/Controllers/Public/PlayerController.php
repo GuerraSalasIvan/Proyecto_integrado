@@ -41,7 +41,7 @@ class PlayerController extends Controller
     /**
      * Display the specified resource.
      */
-    public function show(Player $player): View
+    public function show(Player $player)
     {
         return $this->service->show($player);
     }

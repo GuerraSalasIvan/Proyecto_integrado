@@ -19,7 +19,17 @@ class PlayerService
 
     public function index()
     {
-        //
+        $teams = Team::with('players')->get();
+        $result = [];
+        foreach ($teams as $team) {
+            $result[$team->name] = $team->players;
+        }
+
+        $playersWithoutTeams = Player::doesntHave('teams')->get();
+
+        $result['Sin equipo'] = $playersWithoutTeams;
+
+        return response()->json($result);
     }
 
     public function show(Player $player)
@@ -80,7 +90,16 @@ class PlayerService
         ];
 
 
-        return view('player.show', compact('player', 'gamePlayers', 'averages', 'games','seasonAverages'));
+        $response = [
+            'player' => $player,
+            'gamePlayers' => $gamePlayers,
+            'averages' => $averages,
+            'games' => $games,
+            'seasonAverages' => $seasonAverages,
+            'opponentTeam' => $opponentTeam,
+        ];
+
+        return response()->json($response, 200);
     }
 
 

@@ -16,7 +16,7 @@ class MainPageController extends Controller
         $this->service = new MainPageService();
     }
 
-    public function index(): View
+    public function index()
     {
         return $this->service->index();
     }

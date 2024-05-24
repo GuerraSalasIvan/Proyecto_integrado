@@ -8,7 +8,7 @@ use Illuminate\Support\ValidatedInput;
 
 class LoginService
 {
-    public function login(): View
+    public function login()
     {
         return view('login');
     }
