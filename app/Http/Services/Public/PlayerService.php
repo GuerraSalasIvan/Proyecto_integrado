@@ -18,26 +18,45 @@ class PlayerService
 {
 
     public function index()
-    {
-        $teams = Team::with('players')->get();
-        $result = [];
-        foreach ($teams as $team) {
-            $result[$team->name] = $team->players;
-        }
+{
+    // Cargar equipos con sus jugadores
+    $teams = Team::with('players')->get();
+    $result = [];
 
-        $playersWithoutTeams = Player::doesntHave('teams')->get();
-
-        $result['Sin equipo'] = $playersWithoutTeams;
-
-        return response()->json($result);
+    // Iterar sobre cada equipo y sus jugadores
+    foreach ($teams as $team) {
+        $playersWithImages = $team->players->map(function ($player) {
+            $player->imageURL = $player->getFirstMediaURL(); // Asignar la URL de la imagen
+            return $player;
+        });
+        $result[$team->name] = $playersWithImages;
     }
+
+    // Obtener jugadores sin equipo
+    $playersWithoutTeams = Player::doesntHave('teams')->get();
+    $playersWithoutTeamsWithImages = $playersWithoutTeams->map(function ($player) {
+        $player->imageURL = $player->getFirstMediaURL(); // Asignar la URL de la imagen
+        return $player;
+    });
+
+    // Añadir jugadores sin equipo al resultado
+    $result['Sin equipo'] = $playersWithoutTeamsWithImages;
+
+    // Devolver la respuesta JSON
+    return response()->json($result);
+}
+
+
+
 
     public function show(Player $player)
     {
         $playerId = $player->id;
+        $player->imageURL = $player->getFirstMediaURL(); // Añadir el campo imageURL al objeto player
+
+        $teamId = $player->teams->first()->id;
         $gamePlayers = GamePlayer::where('player_id', $playerId)->get();
         $totalGames = $gamePlayers->count();
-
 
         $averages = [
             'points' => number_format($totalGames > 0 ? $gamePlayers->sum('points') / $totalGames : 0, 1),
@@ -48,24 +67,8 @@ class PlayerService
             'fouls' => number_format($totalGames > 0 ? $gamePlayers->sum('fouls') / $totalGames : 0, 1),
         ];
 
-
-        $games = $player->games;
-
-        foreach ($games as $game) {
-
-            if ($game->local_team_id == $player->teams->first()->id) {
-                $opponentTeam = Team::find($game->visit_team_id);
-
-                break;
-            } elseif ($game->visit_team_id == $player->teams->first()->id) {
-                $opponentTeam = Team::find($game->local_team_id);
-                break;
-            }
-        }
-
         $year = $player->games->first()->leagues->year;
 
-        // Filtrar los juegos del jugador por temporada (año de la liga)
         $gamesBySeason = $player->games->filter(function ($game) use ($year) {
             return $game->leagues->year == $year;
         });
@@ -89,18 +92,46 @@ class PlayerService
             'fouls' => number_format($totalGamesBySeason > 0 ? $gamePlayersByPlayer->sum('fouls') / $totalGamesBySeason : 0, 1),
         ];
 
+        // Modificar gamePlayers para incluir los datos del juego correspondiente y el equipo rival
+        $modifiedGamePlayers = $gamePlayers->map(function ($gamePlayer) use ($teamId) {
+            $game = $gamePlayer->game; // Obtener el juego correspondiente
+
+            // Determinar el equipo rival
+            $rivalTeam = $game->local_team_id == $teamId ? $game->visit_team : $game->local_team;
+
+            return [
+                'id' => $gamePlayer->id,
+                'points' => $gamePlayer->points,
+                'rebounds' => $gamePlayer->rebounds,
+                'assists' => $gamePlayer->assists,
+                'steals' => $gamePlayer->steals,
+                'blocks' => $gamePlayer->blocks,
+                'fouls' => $gamePlayer->fouls,
+                'number' => $gamePlayer->number,
+                'player_id' => $gamePlayer->player_id,
+                'game' => $game, // Incluir el juego completo
+                'rival_team' => $rivalTeam->name, // Incluir el nombre del equipo rival
+                'created_at' => $gamePlayer->created_at,
+                'updated_at' => $gamePlayer->updated_at,
+                'deleted_at' => $gamePlayer->deleted_at,
+            ];
+        });
 
         $response = [
             'player' => $player,
-            'gamePlayers' => $gamePlayers,
             'averages' => $averages,
-            'games' => $games,
             'seasonAverages' => $seasonAverages,
-            'opponentTeam' => $opponentTeam,
+            'gamePlayers' => $modifiedGamePlayers,
         ];
 
         return response()->json($response, 200);
     }
+
+
+
+
+
+
 
 
 

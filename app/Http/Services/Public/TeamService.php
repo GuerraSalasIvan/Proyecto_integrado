@@ -18,24 +18,37 @@ class TeamService
     public function index()
     {
         $teams = Team::with('leagues')->get();
+        $teams->each(function ($team) {
+                $team->imageURL = $team->getFirstMediaURL();
+        });
 
-        // Transformar los datos para incluir el nombre de la liga
         $teams = $teams->map(function($team) {
             return [
                 'id' => $team->id,
                 'name' => $team->name,
                 'league_id' => $team->league_id,
                 'league_name' => $team->leagues ? $team->leagues->name : null,
+                'imageURL' => $team->getFirstMediaURL(),
 
             ];
         });
+
+
+        //
+
         return response()->json(['teams' => $teams], 200);
     }
 
     public function show(Team $team)
-    {
-        $team->load('players');
-        return response()->json(['team' => $team], 200);
-    }
+{
+    $team->load('players');
+    $team->imageURL = $team->getFirstMediaURL();
+
+    $team->players->each(function ($player) {
+        $player->imageURL = $player->getFirstMediaURL();
+    });
+
+    return response()->json(['team' => $team], 200);
+}
 
 }

@@ -12,5 +12,11 @@ class PlayerSeeder extends Seeder
     public function run(): void
     {
         Player::factory()->count(39)->create();
+
+        $player = Player::all();
+        foreach($player as $player){
+            $player->addMediaFromUrl('https://picsum.photos/400/400')
+            ->toMediaCollection();
+        }
     }
 }

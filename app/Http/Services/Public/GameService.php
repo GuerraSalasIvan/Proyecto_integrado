@@ -10,6 +10,14 @@ use App\Models\GameDetail;
 
 class GameService
 {
+
+    public function index()
+    {
+        $response = Game::with(['local_team', 'visit_team'])->get();
+        return response()->json($response, 200);
+    }
+
+
     public function show(Game $game)
     {
         $gameDetails = $game->gameDetails;

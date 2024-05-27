@@ -22,7 +22,7 @@ class GameController extends Controller
 
     public function index()
     {
-        //
+        return $this->service->index();
     }
 
 
