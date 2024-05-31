@@ -12,40 +12,56 @@ use Illuminate\Support\Carbon;
 use Illuminate\Support\ValidatedInput;
 // use App\Http\Requests\PlayerRequest;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Auth;
 
 
 class PlayerService
 {
 
     public function index()
-{
-    // Cargar equipos con sus jugadores
-    $teams = Team::with('players')->get();
-    $result = [];
+    {
+        // Cargar equipos con sus jugadores
+        $teams = Team::with('players')->get();
+        $result = [];
 
-    // Iterar sobre cada equipo y sus jugadores
-    foreach ($teams as $team) {
-        $playersWithImages = $team->players->map(function ($player) {
+        // Iterar sobre cada equipo y sus jugadores
+        foreach ($teams as $team) {
+            $playersWithImages = $team->players->map(function ($player) {
+                $player->imageURL = $player->getFirstMediaURL(); // Asignar la URL de la imagen
+                return $player;
+            });
+            $result[$team->name] = $playersWithImages;
+        }
+
+        // Obtener jugadores sin equipo
+        $playersWithoutTeams = Player::doesntHave('teams')->get();
+        $playersWithoutTeamsWithImages = $playersWithoutTeams->map(function ($player) {
             $player->imageURL = $player->getFirstMediaURL(); // Asignar la URL de la imagen
             return $player;
         });
-        $result[$team->name] = $playersWithImages;
+
+        // Añadir jugadores sin equipo al resultado
+        $result['Sin equipo'] = $playersWithoutTeamsWithImages;
+
+        // Devolver la respuesta JSON
+        return response()->json($result);
     }
 
-    // Obtener jugadores sin equipo
-    $playersWithoutTeams = Player::doesntHave('teams')->get();
-    $playersWithoutTeamsWithImages = $playersWithoutTeams->map(function ($player) {
-        $player->imageURL = $player->getFirstMediaURL(); // Asignar la URL de la imagen
-        return $player;
-    });
+    public function store(Request $request)
+    {
+        $validated = $request->validate([
+            'full_name' => 'required|string|max:100',
+            'birthdate' => 'required|date',
+            'position' => 'required|integer|between:1,5',
+        ]);
 
-    // Añadir jugadores sin equipo al resultado
-    $result['Sin equipo'] = $playersWithoutTeamsWithImages;
 
-    // Devolver la respuesta JSON
-    return response()->json($result);
-}
+        $player = new Player($validated);
+        $player->user_id = Auth::id();
+        $player->save();
 
+        return response()->json(['message' => 'Player created successfully', 'player' => $player], 201);
+    }
 
 
 

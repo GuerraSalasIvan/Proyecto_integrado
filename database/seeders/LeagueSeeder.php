@@ -12,18 +12,28 @@ class LeagueSeeder extends Seeder
     public function run(): void
     {
         League::create([
-            'name' => '1º Provincial',
+            'name' => '3º Provincial',
             'year' => '2023'
+        ]);
+
+        League::create([
+            'name' => '4º Provincial',
+            'year' => '2024'
         ]);
 
         League::create([
             'name' => '2º Provincial',
-            'year' => '2023'
+            'year' => '2022'
         ]);
 
         League::create([
-            'name' => '1º Provincial',
-            'year' => '2022'
+            'name' => '5º Provincial',
+            'year' => '2025'
+        ]);
+
+        League::create([
+            'name' => '6º Provincial',
+            'year' => '2026'
         ]);
     }
 }

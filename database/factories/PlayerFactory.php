@@ -21,6 +21,7 @@ class PlayerFactory extends Factory
         return [
             'full_name' => fake()->name(),
             'birthdate' =>fake()->date(),
+            'position' => fake()->numberBetween(1, 5),
         ];
     }
 

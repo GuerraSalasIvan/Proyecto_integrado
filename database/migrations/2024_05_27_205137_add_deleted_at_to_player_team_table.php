@@ -11,13 +11,8 @@ return new class extends Migration
      */
     public function up(): void
     {
-        Schema::create('players', function (Blueprint $table) {
-            $table->id();
-            $table->string('full_name',100);
-            $table->date('birthdate');
-            $table->tinyInteger('position');
-            $table->unsignedBigInteger('user_id');
-            $table->timestamps();
+        Schema::table('player_team', function (Blueprint $table) {
+            $table->softDeletes();
         });
     }
 
@@ -26,6 +21,8 @@ return new class extends Migration
      */
     public function down(): void
     {
-        Schema::dropIfExists('players');
+        Schema::table('player_team', function (Blueprint $table) {
+            $table->dropSoftDeletes();
+        });
     }
 };

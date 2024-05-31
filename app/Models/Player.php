@@ -31,4 +31,9 @@ class Player extends Model implements HasMedia
     {
         return $this->hasMany(GamePlayer::class, 'player_id', 'id');
     }
+
+    public function user(): BelongsTo
+    {
+        return $this->belongsTo(User::class);
+    }
 }

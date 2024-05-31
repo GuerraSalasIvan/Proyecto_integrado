@@ -36,4 +36,11 @@ class LoginController extends Controller
     {
         $this->middleware('guest')->except('logout');
     }
+
+    protected function authenticated(Request $request, $user)
+    {
+        $playerExists = $user->player ? true : false;
+
+        return response()->json(['playerExists' => $playerExists]);
+    }
 }

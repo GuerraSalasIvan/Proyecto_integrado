@@ -20,27 +20,27 @@ class TeamSeeder extends Seeder
 
         Team::create([
             'name' => 'Maria Zambrano Azul',
+            'league_id' => '2',
+        ]);
+
+        Team::create([
+            'name' => 'Maria Zambrano Rosa',
             'league_id' => '3',
         ]);
 
         Team::create([
             'name' => 'Maria Zambrano Rosa',
-            'league_id' => '1',
+            'league_id' => '4',
         ]);
 
         Team::create([
-            'name' => 'Maria Zambrano Rosa',
-            'league_id' => '1',
+            'name' => 'Maria Zambrano Morado',
+            'league_id' => '5',
         ]);
 
         Team::create([
             'name' => 'Maria Zambrano Morado',
             'league_id' => '2',
-        ]);
-
-        Team::create([
-            'name' => 'Maria Zambrano Morado',
-            'league_id' => '1',
         ]);
 
         $team = Team::all();
