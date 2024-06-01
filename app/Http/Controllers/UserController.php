@@ -15,26 +15,10 @@ class UserController extends Controller
         return $request->user()->load('player.teams');
     }
 
-    public function getUserPlayer(Request $request)
-    {
-        $user = $request->user()->load('player.teams');
-        $playerTeam = $request->user()->load('player.teams');
-
-        $currentYear = Carbon::now()->year;
-
-        $teams = Team::whereHas('leagues', function ($query) use ($currentYear) {
-            $query->where('year', '>=', $currentYear);
-        })->with('leagues')->get();
-
-        return response()->json([
-            'user' => $user,
-            'teams' => $teams,
-            'playerTeam' => $playerTeam,
-        ]);
-    }
 
     public function assignTeam(Request $request)
     {
+
         $request->validate([
             'playerId' => 'required|exists:players,id',
             'teamId' => 'required|exists:teams,id'

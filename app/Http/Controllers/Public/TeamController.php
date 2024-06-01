@@ -5,6 +5,7 @@ namespace App\Http\Controllers\Public;
 use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
 use App\Http\Services\Public\TeamService;
+use Carbon\Carbon;
 use App\Models\Team;
 use Illuminate\View\View;
 
@@ -20,6 +21,19 @@ class TeamController extends Controller
     public function index()
     {
         return $this->service->index();
+    }
+
+    public function getCurrentTeams(Request $request)
+    {
+        $currentYear = Carbon::now()->year;
+
+        $teams = Team::whereHas('leagues', function ($query) use ($currentYear) {
+            $query->where('year', '>=', $currentYear);
+        })->with('leagues')->get();
+
+        return response()->json([
+            'teams' => $teams,
+        ]);
     }
 
     /**

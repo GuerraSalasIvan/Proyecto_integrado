@@ -43,6 +43,7 @@ Route::get('/csrf-token', function () {
 
     //Public
     Route::resource('team', TeamController::class)->only(['index','show']);
+    Route::get('/currentteams', [TeamController::class, 'getCurrentTeams']);
 
 
     //Private
@@ -64,5 +65,4 @@ Route::get('/csrf-token', function () {
 
 
 Route::middleware('auth:sanctum')->get('/user', [UserController::class, 'getUser']);
-Route::middleware('auth:sanctum')->get('/userPlayer', [UserController::class, 'getUserPlayer']);
-Route::middleware('auth:sanctum')->post('/assignTeam', [UserController::class, 'assignTeam']);
+Route::post('/assignTeam', [UserController::class, 'assignTeam']);
