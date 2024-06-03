@@ -25,15 +25,7 @@ class TeamController extends Controller
 
     public function getCurrentTeams(Request $request)
     {
-        $currentYear = Carbon::now()->year;
-
-        $teams = Team::whereHas('leagues', function ($query) use ($currentYear) {
-            $query->where('year', '>=', $currentYear);
-        })->with('leagues')->get();
-
-        return response()->json([
-            'teams' => $teams,
-        ]);
+        return $this->service->getCurrentTeams($request);
     }
 
     /**

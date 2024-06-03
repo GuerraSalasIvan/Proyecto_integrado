@@ -33,22 +33,37 @@ class TeamService
             ];
         });
 
-
-        //
-
         return response()->json(['teams' => $teams], 200);
     }
 
+    public function getCurrentTeams ()
+    {
+        $currentYear = Carbon::now()->year;
+
+        $teams = Team::whereHas('leagues', function ($query) use ($currentYear) {
+            $query->where('year', '>=', $currentYear);
+        })->with('leagues')->get();
+
+        $teams->each(function ($team){
+            $team->imageURL = $team->getFirstMediaURL();
+        });
+
+        return response()->json([
+            'teams' => $teams,
+        ]);
+
+    }
+
     public function show(Team $team)
-{
-    $team->load('players');
-    $team->imageURL = $team->getFirstMediaURL();
+    {
+        $team->load('players');
+        $team->imageURL = $team->getFirstMediaURL();
 
-    $team->players->each(function ($player) {
-        $player->imageURL = $player->getFirstMediaURL();
-    });
+        $team->players->each(function ($player) {
+            $player->imageURL = $player->getFirstMediaURL();
+        });
 
-    return response()->json(['team' => $team], 200);
-}
+        return response()->json(['team' => $team], 200);
+    }
 
 }

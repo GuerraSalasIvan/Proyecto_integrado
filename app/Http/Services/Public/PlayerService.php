@@ -68,7 +68,7 @@ class PlayerService
     public function show(Player $player)
     {
         $playerId = $player->id;
-        $player->imageURL = $player->getFirstMediaURL(); // Añadir el campo imageURL al objeto player
+        $player->imageURL = $player->getFirstMediaURL();
 
         $teamId = $player->teams->first()->id;
         $gamePlayers = GamePlayer::where('player_id', $playerId)->get();
