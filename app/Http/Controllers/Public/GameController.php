@@ -25,12 +25,20 @@ class GameController extends Controller
         return $this->service->index();
     }
 
+    public function arbitrated()
+    {
+        return $this->service->arbitrated();
+    }
 
     public function show(Game $game)
     {
         return $this->service->show($game);
     }
 
+    public function details(Game $game)
+    {
+        return $this->service->details($game);
+    }
 
     public function destroy(string $id)
     {

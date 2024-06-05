@@ -10,6 +10,9 @@ use App\Http\Controllers\Private\TeamController as PrivateTeamController;
 use App\Http\Controllers\Public\TeamController;
 use App\Http\Controllers\Private\GameController as PrivateGameController;
 use App\Http\Controllers\Public\GameController;
+
+use App\Http\Controllers\Public\LeagueController;
+use App\Http\Controllers\Public\UbicationController;
 use App\Http\Controllers\UserController;
 
 
@@ -57,11 +60,26 @@ Route::get('/csrf-token', function () {
 
     //Public
     Route::resource('game', GameController::class)->only(['index','show']);
+    Route::get('/game/details', [GameController::class, 'details']);
+    Route::get('/game/arbitrated', [GameController::class, 'arbitrated']);
 
 
     //Private
     Route::get('/game/table/create', [PrivateGameController::class, 'create'])->name('game.create');
     Route::resource('game', PrivateGameController::class)->except(['index','show','create']);
+
+//
+// LEAGUES
+//
+
+    Route::get('/leagues', [LeagueController::class, 'index']);
+    Route::get('/leagues/{year}', [LeagueController::class, 'show']);
+
+//
+// UBICATIONS
+//
+
+    Route::get('/ubications', [UbicationController::class, 'index']);
 
 
 Route::middleware('auth:sanctum')->get('/user', [UserController::class, 'getUser']);
