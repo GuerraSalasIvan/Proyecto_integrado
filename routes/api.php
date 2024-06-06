@@ -10,6 +10,8 @@ use App\Http\Controllers\Private\TeamController as PrivateTeamController;
 use App\Http\Controllers\Public\TeamController;
 use App\Http\Controllers\Private\GameController as PrivateGameController;
 use App\Http\Controllers\Public\GameController;
+use App\Http\Controllers\Private\GameDetailController as PrivateGameDetailController;
+use App\Http\Controllers\Private\GamePlayerController as PrivateGamePlayerController;
 
 use App\Http\Controllers\Public\LeagueController;
 use App\Http\Controllers\Public\UbicationController;
@@ -74,6 +76,21 @@ Route::get('/csrf-token', function () {
 
     Route::get('/leagues', [LeagueController::class, 'index']);
     Route::get('/leagues/{year}', [LeagueController::class, 'show']);
+
+//
+// GAME DETAILS
+//
+
+    Route::resource('gameDetail', PrivateGameDetailController::class);
+
+
+//
+// GAME DETAILS
+//
+
+    Route::resource('gamePlayer', PrivateGamePlayerController::class);
+
+
 
 //
 // UBICATIONS
