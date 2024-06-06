@@ -10,7 +10,6 @@ use App\Models\GameDetail;
 
 class GameService
 {
-
     public function index()
     {
         $gamesWithoutDetails = Game::with(['local_team', 'visit_team', 'leagues', 'ubications', 'gameDetails'])
@@ -33,6 +32,7 @@ class GameService
 
     public function show(Game $game)
     {
+
         // Cargar solo los jugadores cuya posición no sea 0
         $game->load(['local_team.players' => function ($query) {
             $query->where('position', '!=', 0);
@@ -42,10 +42,6 @@ class GameService
 
         return response()->json($game, 200);
     }
-
-
-
-
 
 
 
@@ -60,9 +56,9 @@ class GameService
             return in_array($player->player_id, $localTeamPlayersIds);
         });
 
-        $visitTeamPlayers = $game->gamePlayers->filter(function ($player) use ($visitTeamPlayersIds) {
+        $visitTeamPlayers = array_values($game->gamePlayers->filter(function ($player) use ($visitTeamPlayersIds) {
             return in_array($player->player_id, $visitTeamPlayersIds);
-        });
+        })->toArray());
 
         $localPoints = $gameDetails->local_first_cuarter + $gameDetails->local_second_cuarter + $gameDetails->local_third_cuarter + $gameDetails->local_fourth_cuarter;
 

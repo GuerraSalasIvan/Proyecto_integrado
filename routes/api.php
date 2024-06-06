@@ -62,8 +62,8 @@ Route::get('/csrf-token', function () {
 
     //Public
     Route::resource('game', GameController::class)->only(['index','show']);
-    Route::get('/game/details', [GameController::class, 'details']);
-    Route::get('/game/arbitrated', [GameController::class, 'arbitrated']);
+    Route::get('/game/details/{game}', [GameController::class, 'details']);
+    Route::get('/arbitrated', [GameController::class, 'arbitrated']);
 
 
     //Private

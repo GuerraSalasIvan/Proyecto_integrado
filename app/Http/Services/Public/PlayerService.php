@@ -90,7 +90,7 @@ class PlayerService
         });
         $totalGamesBySeason = $gamesBySeason->count();
 
-        $gamePlayersBySeason = collect(); // Inicializa una colección vacía para almacenar los gamePlayers
+        $gamePlayersBySeason = collect();
 
         foreach ($gamesBySeason as $game) {
             $gamePlayersBySeason = $gamePlayersBySeason->merge($game->gamePlayers);

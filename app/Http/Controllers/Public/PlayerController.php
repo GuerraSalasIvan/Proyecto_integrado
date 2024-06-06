@@ -29,7 +29,7 @@ class PlayerController extends Controller
 
     public function store(Request $request)
     {
-        dd($request);
+
         return $this->service->store($request);
     }
 

@@ -19,7 +19,6 @@ class GameController extends Controller
         $this->service = new GameService();
     }
 
-
     public function index()
     {
         return $this->service->index();
