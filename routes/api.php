@@ -20,7 +20,7 @@ use App\Http\Controllers\UserController;
 
 
 
-Route::get('/home', 'App\Http\Controllers\Public\MainPageController@index');
+Route::get('/dashboard', 'App\Http\Controllers\Public\MainPageController@index');
 
 Route::get('/csrf-token', function () {
     return response()->json(['csrfToken' => csrf_token()]);

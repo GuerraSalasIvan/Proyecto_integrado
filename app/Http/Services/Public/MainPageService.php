@@ -19,6 +19,7 @@ class MainPageService
                 ->orderBy('match_date', 'desc')
                 ->take(4)
                 ->get();
+    // dd($games);
 
     $games = $games->map(function($game) {
         return [
@@ -27,15 +28,15 @@ class MainPageService
             'reports' => $game->reports,
             'local_team' => $game->local_team->name,
             'visit_team' => $game->visit_team->name,
-            'local_team_score' => $game->gameDetails->local_first_cuarter +
-                                  $game->gameDetails->local_second_cuarter +
-                                  $game->gameDetails->local_third_cuarter +
-                                  $game->gameDetails->local_fourth_cuarter,
+            'local_team_score' =>   $game->gameDetails->local_first_cuarter +
+                                    $game->gameDetails->local_second_cuarter +
+                                    $game->gameDetails->local_third_cuarter +
+                                    $game->gameDetails->local_fourth_cuarter,
 
-            'visit_team_score' => $game->gameDetails->visit_first_cuarter +
-                                  $game->gameDetails->visit_second_cuarter +
-                                  $game->gameDetails->visit_third_cuarter +
-                                  $game->gameDetails->visit_fourth_cuarter,
+            'visit_team_score' =>   $game->gameDetails->visit_first_cuarter +
+                                    $game->gameDetails->visit_second_cuarter +
+                                    $game->gameDetails->visit_third_cuarter +
+                                    $game->gameDetails->visit_fourth_cuarter,
 
             'mvp' => $game->gameDetails->mvps->full_name,
             'league' => $game->leagues->name,
@@ -44,6 +45,4 @@ class MainPageService
 
     return response()->json($games, 200);
     }
-
-
 }
