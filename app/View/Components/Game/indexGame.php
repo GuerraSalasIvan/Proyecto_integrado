@@ -21,7 +21,7 @@ class indexGame extends Component
     /**
      * Get the view / contents that represent the component.
      */
-    public function render() |Closure|string
+    public function render(): Closure|string
     {
         return view('components.game.index-game');
     }
