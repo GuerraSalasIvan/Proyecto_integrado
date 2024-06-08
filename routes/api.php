@@ -35,7 +35,7 @@ Route::get('/csrf-token', function () {
 
 
     //Private
-    Route::get('/player/table/create', [PrivatePlayerController::class, 'create'])->name('news.create');
+    Route::get('/player/table/create', [PrivatePlayerController::class, 'create']);
     Route::resource('player', PrivatePlayerController::class)->except(['index','show','create','store']);
     Route::middleware('auth:api')->group(function () {
         Route::post('/player', [PlayerController::class, 'store']);
@@ -52,7 +52,7 @@ Route::get('/csrf-token', function () {
 
 
     //Private
-    Route::get('/team/table/create', [PrivateTeamController::class, 'create'])->name('news.create');
+    Route::get('/team/table/create', [PrivateTeamController::class, 'create']);
     Route::resource('team', PrivateTeamController::class)->except(['index','show','create']);
 
 
