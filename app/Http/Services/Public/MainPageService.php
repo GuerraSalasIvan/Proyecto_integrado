@@ -19,7 +19,7 @@ class MainPageService
                 ->orderBy('match_date', 'desc')
                 ->take(4)
                 ->get();
-    // dd($games);
+
 
     $games = $games->map(function($game) {
         return [
