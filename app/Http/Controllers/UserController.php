@@ -12,7 +12,9 @@ class UserController extends Controller
 
     public function getUser(Request $request)
     {
-        $user = Auth::user()->player;
+        $user = $request->user()->load('player.teams');
+        $user->player->imageURL = $user->player->getFirstMediaURL();
+
         return response()->json($user);
     }
 
