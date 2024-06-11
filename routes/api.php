@@ -99,6 +99,6 @@ Route::get('/csrf-token', function () {
     Route::get('/ubications', [UbicationController::class, 'index']);
 
 
-Route::middleware('auth:sanctum')->get('/user', [UserController::class, 'getUser']);
+Route::get('/user', [UserController::class, 'getUser']);
 Route::post('/assignTeam', [UserController::class, 'assignTeam']);
 Route::post('/updateUser', [UserController::class, 'updateUser']);
