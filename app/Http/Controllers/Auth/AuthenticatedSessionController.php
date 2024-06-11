@@ -15,6 +15,7 @@ class AuthenticatedSessionController extends Controller
      */
     public function store(LoginRequest $request): Response
     {
+
         $request->authenticate();
 
         $request->session()->regenerate();
@@ -22,9 +23,7 @@ class AuthenticatedSessionController extends Controller
         return response()->noContent();
     }
 
-    /**
-     * Destroy an authenticated session.
-     */
+
     public function destroy(Request $request): Response
     {
         Auth::guard('web')->logout();

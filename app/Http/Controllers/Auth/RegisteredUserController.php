@@ -14,11 +14,6 @@ use Illuminate\Validation\Rules;
 
 class RegisteredUserController extends Controller
 {
-    /**
-     * Handle an incoming registration request.
-     *
-     * @throws \Illuminate\Validation\ValidationException
-     */
     public function store(Request $request): Response
     {
         $request->validate([
@@ -30,11 +25,15 @@ class RegisteredUserController extends Controller
             'player_position' => ['required', 'integer'],
         ]);
 
+
+
         $user = User::create([
             'name' => $request->name,
             'email' => $request->email,
             'password' => Hash::make($request->password),
         ]);
+
+        $token = $user->createToken('api_token');
 
         $player = Player::create([
             'full_name' => $request->player_full_name,

@@ -16,7 +16,6 @@ class UserController extends Controller
         $user->player->imageURL = $user->player->getFirstMediaURL();
 
         return response()->json($user);
-
     }
 
 
