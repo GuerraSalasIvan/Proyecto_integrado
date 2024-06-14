@@ -12,6 +12,7 @@ class UserController extends Controller
 
     public function getUser(Request $request)
     {
+
         $user = $request->user()->load('player.teams');
         $user->player->imageURL = $user->player->getFirstMediaURL();
 
