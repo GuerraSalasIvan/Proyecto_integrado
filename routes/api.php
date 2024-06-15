@@ -13,6 +13,7 @@ use App\Http\Controllers\Public\GameController;
 use App\Http\Controllers\Private\GameDetailController as PrivateGameDetailController;
 use App\Http\Controllers\Private\GamePlayerController as PrivateGamePlayerController;
 
+
 use App\Http\Controllers\Public\LeagueController;
 use App\Http\Controllers\Public\UbicationController;
 use App\Http\Controllers\UserController;
@@ -98,6 +99,19 @@ Route::get('/csrf-token', function () {
 
     Route::get('/ubications', [UbicationController::class, 'index']);
 
+
+
+
+Route::post('register', [UserController::class, 'register']);
+Route::post('login', [UserController::class, 'login']);
+
+Route::middleware(['auth:sanctum'])->group(function () {
+    Route::get('logout', [UserController::class, 'logout']);
+});
+
+// Route::middleware('auth:sanctum')->get('/user', function (Request $request) {
+//     return $request->user();
+// });
 
 Route::middleware('auth:sanctum')->get('/user', [UserController::class, 'getUser']);
 
