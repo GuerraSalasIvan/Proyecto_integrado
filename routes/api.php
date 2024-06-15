@@ -13,7 +13,6 @@ use App\Http\Controllers\Public\GameController;
 use App\Http\Controllers\Private\GameDetailController as PrivateGameDetailController;
 use App\Http\Controllers\Private\GamePlayerController as PrivateGamePlayerController;
 
-
 use App\Http\Controllers\Public\LeagueController;
 use App\Http\Controllers\Public\UbicationController;
 use App\Http\Controllers\UserController;
@@ -36,7 +35,7 @@ Route::get('/csrf-token', function () {
 
 
     //Private
-    Route::get('/player/table/create', [PrivatePlayerController::class, 'create']);
+    Route::get('/player/table/create', [PrivatePlayerController::class, 'create'])->name('news.create');
     Route::resource('player', PrivatePlayerController::class)->except(['index','show','create','store']);
     Route::middleware('auth:api')->group(function () {
         Route::post('/player', [PlayerController::class, 'store']);
@@ -53,7 +52,7 @@ Route::get('/csrf-token', function () {
 
 
     //Private
-    Route::get('/team/table/create', [PrivateTeamController::class, 'create']);
+    Route::get('/team/table/create', [PrivateTeamController::class, 'create'])->name('news.create');
     Route::resource('team', PrivateTeamController::class)->except(['index','show','create']);
 
 
@@ -100,20 +99,6 @@ Route::get('/csrf-token', function () {
     Route::get('/ubications', [UbicationController::class, 'index']);
 
 
-
-
-Route::post('register', [UserController::class, 'register']);
-Route::post('login', [UserController::class, 'login']);
-
-Route::middleware(['auth:sanctum'])->group(function () {
-    Route::get('logout', [UserController::class, 'logout']);
-});
-
-// Route::middleware('auth:sanctum')->get('/user', function (Request $request) {
-//     return $request->user();
-// });
-
 Route::middleware('auth:sanctum')->get('/user', [UserController::class, 'getUser']);
-
 Route::post('/assignTeam', [UserController::class, 'assignTeam']);
 Route::post('/updateUser', [UserController::class, 'updateUser']);

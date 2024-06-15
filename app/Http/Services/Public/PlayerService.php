@@ -108,9 +108,11 @@ class PlayerService
             'fouls' => number_format($totalGamesBySeason > 0 ? $gamePlayersByPlayer->sum('fouls') / $totalGamesBySeason : 0, 1),
         ];
 
+        // Modificar gamePlayers para incluir los datos del juego correspondiente y el equipo rival
         $modifiedGamePlayers = $gamePlayers->map(function ($gamePlayer) use ($teamId) {
-            $game = $gamePlayer->game;
+            $game = $gamePlayer->game; // Obtener el juego correspondiente
 
+            // Determinar el equipo rival
             $rivalTeam = $game->local_team_id == $teamId ? $game->visit_team : $game->local_team;
 
             return [
@@ -123,8 +125,8 @@ class PlayerService
                 'fouls' => $gamePlayer->fouls,
                 'number' => $gamePlayer->number,
                 'player_id' => $gamePlayer->player_id,
-                'game' => $game,
-                'rival_team' => $rivalTeam->name,
+                'game' => $game, // Incluir el juego completo
+                'rival_team' => $rivalTeam->name, // Incluir el nombre del equipo rival
                 'created_at' => $gamePlayer->created_at,
                 'updated_at' => $gamePlayer->updated_at,
                 'deleted_at' => $gamePlayer->deleted_at,

@@ -29,17 +29,7 @@ class GamePlayerService
             'players.*.fouls' => 'required|integer',
         ]);
 
-        $mvp = null;
-        $maxScore = 0;
-
         foreach ($data['players'] as $playerData) {
-            $score = $this->calculateScore($playerData);
-
-            if ($score > $maxScore) {
-                $maxScore = $score;
-                $mvp = $playerData['player_id'];
-            }
-
             GamePlayer::create([
                 'game_id' => $playerData['game_id'],
                 'player_id' => $playerData['player_id'],
@@ -53,31 +43,7 @@ class GamePlayerService
             ]);
         }
 
-        $gameDetailService = new GameDetailService();
-        $gameDetailService->setMvp($data['gameId'], $mvp);
-
         return response()->json(['message' => 'Game stats saved successfully'], 200);
-    }
-
-
-    private function calculateScore($playerData)
-    {
-
-        $pointsWeight = 3;
-        $reboundsWeight = 2;
-        $assistsWeight = 3;
-        $stealsWeight = 4;
-        $blocksWeight = 5;
-        $foulsWeight = -1;
-
-        $score = $playerData['points'] * $pointsWeight +
-                 $playerData['rebounds'] * $reboundsWeight +
-                 $playerData['assists'] * $assistsWeight +
-                 $playerData['steals'] * $stealsWeight +
-                 $playerData['blocks'] * $blocksWeight +
-                 $playerData['fouls'] * $foulsWeight;
-
-        return $score;
     }
 
 }
