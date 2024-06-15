@@ -11,6 +11,17 @@ use Illuminate\Http\Request;
 
 class GameDetailService
 {
+
+    public function setMvp($gameId, $playerId)
+    {
+        $gameDetail = GameDetail::where('game_id', $gameId)->first();
+
+        if ($gameDetail) {
+            $gameDetail->update(['mvp' => $playerId]);
+        }
+    }
+
+
     public function store(Request $request)
     {
         $validatedData = $request->validate([

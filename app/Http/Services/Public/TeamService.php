@@ -56,14 +56,47 @@ class TeamService
 
     public function show(Team $team)
     {
-        $team->load('players');
-        $team->imageURL = $team->getFirstMediaURL();
+        $team->load('players.gamePlayers');
 
-        $team->players->each(function ($player) {
-            $player->imageURL = $player->getFirstMediaURL();
-        });
+        // Inicializar las variables para las estadísticas totales
+        $totalPoints = 0;
+        $totalRebounds = 0;
+        $totalAssists = 0;
+        $totalSteals = 0;
+        $totalBlocks = 0;
+        $totalFouls = 0;
 
-        return response()->json(['team' => $team], 200);
+        // Recorrer los jugadores del equipo
+        foreach ($team->players as $player) {
+            // Recorrer los game_players del jugador y sumar las estadísticas
+            foreach ($player->gamePlayers as $gamePlayer) {
+                $totalPoints += $gamePlayer->points;
+                $totalRebounds += $gamePlayer->rebounds;
+                $totalAssists += $gamePlayer->assists;
+                $totalSteals += $gamePlayer->steals;
+                $totalBlocks += $gamePlayer->blocks;
+                $totalFouls += $gamePlayer->fouls;
+            }
+        }
+
+        // Calcular el número total de jugadores en el equipo
+        $totalPlayers = $team->players->count();
+
+        // Calcular las estadísticas medias dividiendo la suma total por el número de jugadores
+        $averageStats = [
+            'points' => $totalPoints / $totalPlayers,
+            'rebounds' => $totalRebounds / $totalPlayers,
+            'assists' => $totalAssists / $totalPlayers,
+            'steals' => $totalSteals / $totalPlayers,
+            'blocks' => $totalBlocks / $totalPlayers,
+            'fouls' => $totalFouls / $totalPlayers,
+        ];
+
+        return response()->json([
+            'team' => $team,
+            'averageStats' => $averageStats,
+        ], 200);
     }
+
 
 }
