@@ -45,6 +45,9 @@ class UserController extends Controller
         return response()->json(['data'=>$user, 'access_token' => $token, 'token_type'=>'Bearer']);
     }
 
+
+
+
     public function login(Request $request)
     {
         if (!Auth::attempt($request->only('email', 'password')))
@@ -81,9 +84,8 @@ class UserController extends Controller
     public function getUser(Request $request)
     {
 
-         $user = $request->user();
-        //  ->load('player.teams');
-        // $user->player->imageURL = $user->player->getFirstMediaURL();
+        $user = $request->user();
+
 
         return response()->json([
             'id' => $user->id,
