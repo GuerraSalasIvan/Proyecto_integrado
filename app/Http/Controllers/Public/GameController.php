@@ -24,6 +24,11 @@ class GameController extends Controller
         return $this->service->index();
     }
 
+    public function calendar()
+    {
+        return $this->service->calendar();
+    }
+
     public function arbitrated()
     {
         return $this->service->arbitrated();

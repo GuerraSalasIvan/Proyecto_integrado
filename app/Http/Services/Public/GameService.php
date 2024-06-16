@@ -19,6 +19,17 @@ class GameService
         return response()->json($gamesWithoutDetails, 200);
     }
 
+    public function calendar()
+    {
+        $gamesWithoutDetails = Game::with(['local_team', 'visit_team', 'leagues', 'ubications', 'gameDetails'])
+            ->whereDoesntHave('gameDetails')
+            ->orderBy('match_date', 'asc')
+            ->take(4)
+            ->get();
+
+        return response()->json($gamesWithoutDetails, 200);
+    }
+
 
     public function arbitrated()
     {
