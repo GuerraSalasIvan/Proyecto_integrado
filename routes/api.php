@@ -116,4 +116,4 @@ Route::middleware(['auth:sanctum'])->group(function () {
 Route::middleware('auth:sanctum')->get('/user', [UserController::class, 'getUser']);
 
 Route::post('/assignTeam', [UserController::class, 'assignTeam']);
-Route::post('/updateUser', [UserController::class, 'updateUser']);
+Route::middleware('auth:sanctum')->post('/updateUser', [UserController::class, 'updateUser']);

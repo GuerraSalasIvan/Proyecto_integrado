@@ -17,33 +17,41 @@ class UserController extends Controller
 
     public function register(Request $request)
     {
-        $validator = Validator::make($request->all(),[
-            'name'=>'required',
-            'email' => 'required',
-            'password' => 'required'
+        $validator = Validator::make($request->all(), [
+            'name' => 'required',
+            'email' => 'required|email|unique:users,email',
+            'password' => 'required|min:8',
+            'player_full_name' => 'required',
+            'player_birthdate' => 'required|date',
+            'player_position' => 'required',
         ]);
 
-        if($validator->fails()){
-            return response()->json($validator->errors());
+        if ($validator->fails()) {
+            return response()->json($validator->errors(), 422);
         }
 
+        // Crear usuario
         $user = User::create([
-            'name' => $data['name'],
-            'email' => $data['email'],
-            'password' => Hash::make($data['password']),
+            'name' => $request->input('name'),
+            'email' => $request->input('email'),
+            'password' => Hash::make($request->input('password')),
         ]);
 
+        // Crear jugador asociado al usuario
         $player = Player::create([
-            'name' => $data['player_name'],
-            'birthdate' => $data['player_birthdate'],
-            'position' => $data['player_position'],
+            'full_name' => $request->input('player_full_name'),
+            'birthdate' => $request->input('player_birthdate'),
+            'position' => $request->input('player_position'),
             'user_id' => $user->id,
         ]);
 
+        // Generar token de acceso
         $token = $user->createToken('auth_token')->plainTextToken;
 
-        return response()->json(['data'=>$user, 'access_token' => $token, 'token_type'=>'Bearer']);
+        // Retornar respuesta JSON con datos del usuario y token de acceso
+        return response()->json(['data' => $user, 'access_token' => $token, 'token_type' => 'Bearer']);
     }
+
 
 
 
@@ -107,10 +115,18 @@ class UserController extends Controller
     }
 
     public function updateUser(Request $request)
-    {
-        $user = $request->user();
 
-        $request->validate([
+    {
+        // Obtener el usuario autenticado
+        $user = Auth::user();
+
+        // Si no se obtiene el usuario, devolver un error
+        if (!$user) {
+            return response()->json(['message' => 'User not authenticated'], 401);
+        }
+
+        // Validar los datos del formulario
+        $validator = Validator::make($request->all(), [
             'name' => 'required|string|max:255',
             'full_name' => 'required|string|max:255',
             'email' => 'required|string|email|max:255',
@@ -118,25 +134,37 @@ class UserController extends Controller
             'image' => 'nullable|image|mimes:jpeg,png,jpg,gif,svg|max:2048',
         ]);
 
-        $user->name = $request->name;
-        $user->email = $request->email;
-        $user->save();
-
-        $player = $user->player;
-        $player->full_name = $request->full_name;
-        $player->birthdate = $request->birthdate;
-
-        if ($request->hasFile('image')) {
-
-            if ($player->getFirstMediaURL()) {
-                $player->clearMediaCollection();
-            }
-            $player->addMedia( $request->image)->toMediaCollection();
+        if ($validator->fails()) {
+            return response()->json(['errors' => $validator->errors()], 422);
         }
 
-        $player->save();
+        $validatedData = $validator->validated();
 
-        return response()->json(['message' => 'Profile updated successfully']);
+        // Actualizar los campos del usuario
+        $user->name = $validatedData['name'];
+        $user->email = $validatedData['email'];
+        $user->save();
+
+        // Verificar si el usuario tiene un player asociado
+        $player = $user->player;
+        if ($player) {
+            $player->full_name = $validatedData['full_name'];
+            $player->birthdate = $validatedData['birthdate'];
+
+            if ($request->hasFile('image')) {
+                if ($player->getFirstMediaUrl()) {
+                    $player->clearMediaCollection();
+                }
+                $player->addMedia($request->file('image'))->toMediaCollection();
+            }
+
+            $player->save();
+
+            return response()->json(['message' => 'Profile updated successfully']);
+        } else {
+            return response()->json(['message' => 'Player not found for the user'], 404);
+        }
     }
+
 
 }
