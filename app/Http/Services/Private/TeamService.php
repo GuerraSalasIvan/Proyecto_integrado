@@ -26,7 +26,7 @@ class TeamService
         $team = Team::create([
             'name' => $validated['name'],
             'league_id' => $validated['league_id'],
-            'rol' => $validated['external_team'] ? 1 : 2
+            'rol' => $validated['external_team'] ? 2 : 1
         ]);
 
 

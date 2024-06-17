@@ -41,8 +41,9 @@ class TeamService
         $currentYear = Carbon::now()->year;
 
         $teams = Team::whereHas('leagues', function ($query) use ($currentYear) {
-            $query->where('year', '>=', $currentYear);
-        })->with('leagues')->get();
+            $query->where('year', '=', $currentYear);
+        })->where('rol', 1)
+        ->with('leagues')->get();
 
         $teams->each(function ($team){
             $team->imageURL = $team->getFirstMediaURL();
@@ -55,20 +56,21 @@ class TeamService
     }
 
     public function show(Team $team)
-    {
-        $team->load('players.gamePlayers');
+{
 
-        // Inicializar las variables para las estadísticas totales
-        $totalPoints = 0;
-        $totalRebounds = 0;
-        $totalAssists = 0;
-        $totalSteals = 0;
-        $totalBlocks = 0;
-        $totalFouls = 0;
+    $team->load('players.gamePlayers');
 
-        // Recorrer los jugadores del equipo
+    $totalPoints = 0;
+    $totalRebounds = 0;
+    $totalAssists = 0;
+    $totalSteals = 0;
+    $totalBlocks = 0;
+    $totalFouls = 0;
+
+    if ($team->players->isNotEmpty()) {
+
         foreach ($team->players as $player) {
-            // Recorrer los game_players del jugador y sumar las estadísticas
+
             foreach ($player->gamePlayers as $gamePlayer) {
                 $totalPoints += $gamePlayer->points;
                 $totalRebounds += $gamePlayer->rebounds;
@@ -79,10 +81,8 @@ class TeamService
             }
         }
 
-        // Calcular el número total de jugadores en el equipo
         $totalPlayers = $team->players->count();
 
-        // Calcular las estadísticas medias dividiendo la suma total por el número de jugadores
         $averageStats = [
             'points' => $totalPoints / $totalPlayers,
             'rebounds' => $totalRebounds / $totalPlayers,
@@ -91,12 +91,25 @@ class TeamService
             'blocks' => $totalBlocks / $totalPlayers,
             'fouls' => $totalFouls / $totalPlayers,
         ];
+    } else {
 
-        return response()->json([
-            'team' => $team,
-            'averageStats' => $averageStats,
-        ], 200);
+        $averageStats = [
+            'points' => 0,
+            'rebounds' => 0,
+            'assists' => 0,
+            'steals' => 0,
+            'blocks' => 0,
+            'fouls' => 0,
+        ];
     }
+
+    // Retornar la respuesta en formato JSON
+    return response()->json([
+        'team' => $team,
+        'averageStats' => $averageStats,
+    ], 200);
+}
+
 
 
 }
