@@ -16,7 +16,8 @@ class PlayerSeeder extends Seeder
         $player = Player::all();
         foreach($player as $player){
             $player->addMediaFromUrl('https://picsum.photos/400/400')
-            ->toMediaCollection();
+            ->toMediaCollection()
+            ->useDisk('media');
         }
     }
 }

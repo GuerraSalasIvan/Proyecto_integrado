@@ -69,7 +69,8 @@ class TeamSeeder extends Seeder
             if (!empty($imagePath)) {
                 $team->addMedia($imagePath)
                     ->preservingOriginal()
-                    ->toMediaCollection();
+                    ->toMediaCollection()
+                    ->useDisk('media');
             }
         }
 
