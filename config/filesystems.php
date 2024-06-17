@@ -78,7 +78,7 @@ return [
     */
 
     'links' => [
-        public_path('storage/media') => storage_path('media'),
+        public_path('storage') => storage_path('media'),
     ],
 
 ];

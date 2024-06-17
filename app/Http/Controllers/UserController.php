@@ -155,7 +155,7 @@ class UserController extends Controller
                 if ($player->getFirstMediaUrl()) {
                     $player->clearMediaCollection();
                 }
-                $player->addMedia($request->file('image'))->toMediaCollection()->useDisk('media');
+                $player->addMedia($request->file('image'))->toMediaCollection();
             }
 
             $player->save();
