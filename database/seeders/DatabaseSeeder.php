@@ -16,11 +16,11 @@ class DatabaseSeeder extends Seeder
             TeamSeeder::class,
             UbicationSeeder::class,
             LeagueSeeder::class,
-            PlayerSeeder::class,
+            // PlayerSeeder::class,
             // PlayerTeamSeeder::class,
 
-            GameSeeder::class,
-            GamePlayerSeeder::class,
+            // GameSeeder::class,
+            // GamePlayerSeeder::class,
 
 
 
