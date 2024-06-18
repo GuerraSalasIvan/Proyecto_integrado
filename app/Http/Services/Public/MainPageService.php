@@ -13,7 +13,6 @@ class MainPageService
     {
     $today = Carbon::now();
 
-    // Obtener los cuatro juegos más cercanos que ya hayan ocurrido
     $games = Game::with(['local_team', 'visit_team', 'gameDetails.mvps'])
                 ->where('match_date', '<', $today)
                 ->orderBy('match_date', 'desc')

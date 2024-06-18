@@ -30,14 +30,12 @@ class UserController extends Controller
             return response()->json($validator->errors(), 422);
         }
 
-        // Crear usuario
         $user = User::create([
             'name' => $request->input('name'),
             'email' => $request->input('email'),
             'password' => Hash::make($request->input('password')),
         ]);
 
-        // Crear jugador asociado al usuario
         $player = Player::create([
             'full_name' => $request->input('player_full_name'),
             'birthdate' => $request->input('player_birthdate'),
@@ -45,11 +43,10 @@ class UserController extends Controller
             'user_id' => $user->id,
         ]);
 
-        // Generar token de acceso
         $token = $user->createToken('auth_token')->plainTextToken;
 
-        // Retornar respuesta JSON con datos del usuario y token de acceso
-        return response()->json(['data' => $user, 'access_token' => $token, 'token_type' => 'Bearer']);
+        return response()->json(['data' => $user, 'access_token'
+        => $token, 'token_type' => 'Bearer']);
     }
 
 

@@ -22,7 +22,6 @@ class TeamService
             'external_team' => 'required|boolean'
         ]);
 
-
         $team = Team::create([
             'name' => $validated['name'],
             'league_id' => $validated['league_id'],
@@ -38,9 +37,8 @@ class TeamService
             ]);
 
             $team->players()->attach($player->id);
-
         }
-
-        return response()->json(['message' => 'Team created successfully'], 201);
+        return response()->json(['message' => 'Team created successfully'],
+        201);
     }
 }

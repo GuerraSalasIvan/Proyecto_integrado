@@ -57,6 +57,7 @@ class TeamService
 
     public function show(Team $team)
     {
+
         $team->load('players.gamePlayers');
 
         $totalPoints = 0;
@@ -68,6 +69,8 @@ class TeamService
 
         if ($team->players->isNotEmpty()) {
             foreach ($team->players as $player) {
+                $player->imageURL = $player->getFirstMediaURL();
+
                 foreach ($player->gamePlayers as $gamePlayer) {
                     $totalPoints += $gamePlayer->points;
                     $totalRebounds += $gamePlayer->rebounds;
@@ -79,7 +82,6 @@ class TeamService
             }
 
             $totalPlayers = $team->players->count();
-
             $averageStats = [
                 'points' => $totalPlayers > 0 ? ($totalPoints / $totalPlayers) : 0,
                 'rebounds' => $totalPlayers > 0 ? ($totalRebounds / $totalPlayers) : 0,
@@ -107,6 +109,8 @@ class TeamService
                 'fouls' => 0,
             ];
         }
+
+        $team->imageURL = $team->getFirstMediaURL();
 
         return response()->json([
             'team' => $team,
