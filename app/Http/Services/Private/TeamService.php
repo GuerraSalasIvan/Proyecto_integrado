@@ -29,7 +29,6 @@ class TeamService
             'rol' => $validated['external_team'] ? 2 : 1
         ]);
 
-
         if ($validated['external_team']) {
             $player = Player::create([
                 'full_name' => $validated['name'],
@@ -39,6 +38,7 @@ class TeamService
             ]);
 
             $team->players()->attach($player->id);
+
         }
 
         return response()->json(['message' => 'Team created successfully'], 201);
