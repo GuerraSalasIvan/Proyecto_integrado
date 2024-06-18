@@ -32,19 +32,19 @@ class GameService
 
 
     public function arbitrated()
-    {
-        $gamesWithDetails = Game::with(['local_team', 'visit_team', 'leagues', 'ubications', 'gameDetails'])
-            ->has('gameDetails')
-            ->get();
+{
+    $gamesWithDetails = Game::with(['local_team', 'visit_team', 'leagues', 'ubications', 'gameDetails'])
+        ->has('gameDetails')
+        ->orderBy('match_date', 'desc')
+        ->take(10)
+        ->get();
 
-        return response()->json($gamesWithDetails, 200);
-    }
+    return response()->json($gamesWithDetails, 200);
+}
 
 
     public function show(Game $game)
     {
-
-        // Cargar solo los jugadores cuya posición no sea 0
         $game->load(['local_team.players' => function ($query) {
             $query->where('position', '!=', 0);
         }, 'visit_team.players' => function ($query) {

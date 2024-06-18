@@ -56,59 +56,64 @@ class TeamService
     }
 
     public function show(Team $team)
-{
+    {
+        $team->load('players.gamePlayers');
 
-    $team->load('players.gamePlayers');
+        $totalPoints = 0;
+        $totalRebounds = 0;
+        $totalAssists = 0;
+        $totalSteals = 0;
+        $totalBlocks = 0;
+        $totalFouls = 0;
 
-    $totalPoints = 0;
-    $totalRebounds = 0;
-    $totalAssists = 0;
-    $totalSteals = 0;
-    $totalBlocks = 0;
-    $totalFouls = 0;
-
-    if ($team->players->isNotEmpty()) {
-
-        foreach ($team->players as $player) {
-
-            foreach ($player->gamePlayers as $gamePlayer) {
-                $totalPoints += $gamePlayer->points;
-                $totalRebounds += $gamePlayer->rebounds;
-                $totalAssists += $gamePlayer->assists;
-                $totalSteals += $gamePlayer->steals;
-                $totalBlocks += $gamePlayer->blocks;
-                $totalFouls += $gamePlayer->fouls;
+        if ($team->players->isNotEmpty()) {
+            foreach ($team->players as $player) {
+                foreach ($player->gamePlayers as $gamePlayer) {
+                    $totalPoints += $gamePlayer->points;
+                    $totalRebounds += $gamePlayer->rebounds;
+                    $totalAssists += $gamePlayer->assists;
+                    $totalSteals += $gamePlayer->steals;
+                    $totalBlocks += $gamePlayer->blocks;
+                    $totalFouls += $gamePlayer->fouls;
+                }
             }
+
+            $totalPlayers = $team->players->count();
+
+            $averageStats = [
+                'points' => $totalPlayers > 0 ? ($totalPoints / $totalPlayers) : 0,
+                'rebounds' => $totalPlayers > 0 ? ($totalRebounds / $totalPlayers) : 0,
+                'assists' => $totalPlayers > 0 ? ($totalAssists / $totalPlayers) : 0,
+                'steals' => $totalPlayers > 0 ? ($totalSteals / $totalPlayers) : 0,
+                'blocks' => $totalPlayers > 0 ? ($totalBlocks / $totalPlayers) : 0,
+                'fouls' => $totalPlayers > 0 ? ($totalFouls / $totalPlayers) : 0,
+            ];
+
+            foreach ($averageStats as $key => $value) {
+                if (is_float($value) && floor($value) != $value) {
+                    $averageStats[$key] = number_format($value, 2);
+                } else {
+                    $averageStats[$key] = number_format($value, 0);
+                }
+            }
+
+        } else {
+            $averageStats = [
+                'points' => 0,
+                'rebounds' => 0,
+                'assists' => 0,
+                'steals' => 0,
+                'blocks' => 0,
+                'fouls' => 0,
+            ];
         }
 
-        $totalPlayers = $team->players->count();
-
-        $averageStats = [
-            'points' => $totalPoints / $totalPlayers,
-            'rebounds' => $totalRebounds / $totalPlayers,
-            'assists' => $totalAssists / $totalPlayers,
-            'steals' => $totalSteals / $totalPlayers,
-            'blocks' => $totalBlocks / $totalPlayers,
-            'fouls' => $totalFouls / $totalPlayers,
-        ];
-    } else {
-
-        $averageStats = [
-            'points' => 0,
-            'rebounds' => 0,
-            'assists' => 0,
-            'steals' => 0,
-            'blocks' => 0,
-            'fouls' => 0,
-        ];
+        return response()->json([
+            'team' => $team,
+            'averageStats' => $averageStats,
+        ], 200);
     }
 
-    // Retornar la respuesta en formato JSON
-    return response()->json([
-        'team' => $team,
-        'averageStats' => $averageStats,
-    ], 200);
-}
 
 
 

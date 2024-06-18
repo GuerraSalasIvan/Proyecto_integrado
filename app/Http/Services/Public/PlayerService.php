@@ -110,7 +110,7 @@ class PlayerService
 
         $modifiedGamePlayers = $gamePlayers->map(function ($gamePlayer) use ($teamId) {
             $game = $gamePlayer->game;
-            
+
             $rivalTeam = $game->local_team_id == $teamId ? $game->visit_team : $game->local_team;
 
             return [
